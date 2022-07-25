@@ -3,6 +3,17 @@ import LoginForm from './components/Form/LoginForm';
 import icon from '../../assets/icon.svg';
 import './App.css';
 
+declare global {
+  interface Window {
+    electron: {
+      store: {
+        get: (key: string) => any;
+        set: (key: string, val: any) => void;
+      };
+    };
+  }
+}
+
 const Hello = () => {
   return (
     <div>

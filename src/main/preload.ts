@@ -3,6 +3,14 @@ import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron';
 export type Channels = 'ipc-example';
 
 contextBridge.exposeInMainWorld('electron', {
+  store: {
+    get(val: string) {
+      return ipcRenderer.sendSync('electron-store-get', val);
+    },
+    set(property: string, val: any) {
+      ipcRenderer.send('electron-store-set', property, val);
+    },
+  },
   ipcRenderer: {
     sendMessage(channel: Channels, args: unknown[]) {
       ipcRenderer.send(channel, args);
