@@ -1,4 +1,5 @@
 import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
+import LoginForm from './components/Form/LoginForm';
 import icon from '../../assets/icon.svg';
 import './App.css';
 
@@ -34,6 +35,7 @@ const Hello = () => {
             Donate
           </button>
         </a>
+        <LoginForm />
       </div>
     </div>
   );
