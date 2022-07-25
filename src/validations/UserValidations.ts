@@ -5,4 +5,10 @@ const LoginValidation = yup.object({
   password: yup.string().required('Password is required'),
 });
 
-module.exports = { LoginValidation };
+const CreateUserValidation = yup.object({
+  username: yup.string().required('A username is required'),
+  password: yup.string().required('A Password is required'),
+  email: yup.string().email().required('An email is required'),
+});
+
+module.exports = { LoginValidation, CreateUserValidation };
