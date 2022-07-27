@@ -1,13 +1,10 @@
 import { useFormik } from 'formik';
-import IFormikData from 'interfaces/common/IFormikData';
-import IUserCreate from 'interfaces/user/IUserCreate';
-import IUserLogin from 'interfaces/user/IUserLogin';
 import * as yup from 'yup';
 
 const useFormikWithMaterialUI = (
-  initialValues: IUserLogin | IUserCreate,
-  validationSchema: yup.SchemaOf<IUserLogin | IUserCreate>,
-  callback: (values: IUserLogin | IUserCreate) => void
+  initialValues: any,
+  validationSchema: yup.SchemaOf<any>,
+  callback: (values: any) => void
 ) => {
   const formik = useFormik({
     initialValues,
