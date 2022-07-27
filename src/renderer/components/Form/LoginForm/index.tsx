@@ -1,28 +1,34 @@
-import IUserLogin from 'interfaces/user/IUserLogin';
-import { Box, Button, TextField } from '@mui/material';
+import { Button, TextField, Snackbar } from '@mui/material';
+import useAuthHook from 'api/user/auth';
 import useFormikWithMaterialUI from 'hooks/useFormikWithMui';
-import * as yup from 'yup';
-import {
-  Formik,
-  FormikHelpers,
-  FormikProps,
-  Form,
-  Field,
-  FieldProps,
-} from 'formik';
-import IFormikData from 'interfaces/common/IFormikData';
-
+import authValues from 'formik/auth/auth';
+import { useEffect, useState } from 'react';
+// TODO - needs stlying
 const LoginForm = () => {
-  const initialValues: IUserLogin = { username: '', password: '' };
-  const schema = yup.object({
-    username: yup.string().required(),
-    password: yup.string().required(),
-  });
-  const callback = (values: IFormikData): void => {
-    alert(JSON.stringify(values, null, 2));
-  };
+  const [isOpen, setIsOpen] = useState(false);
+  const [responseMessage, setResponseMessage] = useState('');
 
-  const formik = useFormikWithMaterialUI(initialValues, schema, callback);
+  const mutation = useAuthHook();
+  const { values, schema, callback } = authValues(mutation);
+  const formik = useFormikWithMaterialUI(values, schema, callback);
+
+  useEffect(() => {
+    setIsOpen(true);
+    if (mutation.isSuccess) {
+      setResponseMessage('Successfully Logged in');
+    }
+    if (mutation.isError) {
+      setResponseMessage('User not found');
+    }
+  }, [mutation.isSuccess, mutation.isError]);
+
+  const handleClose = (
+    event: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === 'clickaway') return;
+    setIsOpen(false);
+  };
 
   return (
     <>
@@ -36,7 +42,6 @@ const LoginForm = () => {
             value={formik.values.username}
             onChange={formik.handleChange}
             error={formik.touched.username && Boolean(formik.errors.username)}
-            helperText={formik.touched.username && formik.errors.username}
           />
           <TextField
             fullWidth
@@ -47,12 +52,17 @@ const LoginForm = () => {
             value={formik.values.password}
             onChange={formik.handleChange}
             error={formik.touched.password && Boolean(formik.errors.password)}
-            helperText={formik.touched.password && formik.errors.password}
           />
           <Button color="primary" variant="contained" fullWidth type="submit">
             Submit
           </Button>
         </form>
+        <Snackbar
+          open={isOpen}
+          autoHideDuration={6000}
+          onClose={handleClose}
+          message={responseMessage}
+        />
       </div>
     </>
   );
