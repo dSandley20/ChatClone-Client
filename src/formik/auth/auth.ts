@@ -1,12 +1,12 @@
 import ILoginCreateUser from 'interfaces/user/ILoginCreateUser';
-import IAuthFormik from 'interfaces/formik/IAuthFormik';
+import IFormik from 'interfaces/common/IFormik';
 import IAuth from 'interfaces/user/IAuth';
 import * as yup from 'yup';
 import { UseMutationResult } from '@tanstack/react-query';
 
 const authValues = (
   mutation: UseMutationResult<IAuth | void, unknown, ILoginCreateUser>
-): IAuthFormik => {
+): IFormik => {
   const initialValues: ILoginCreateUser = { username: '', password: '' };
   const schema = yup.object({
     username: yup.string().required(),
@@ -17,7 +17,7 @@ const authValues = (
     mutation.mutate(values);
   };
 
-  const values: IAuthFormik = { values: initialValues, schema, callback };
+  const values: IFormik = { values: initialValues, schema, callback };
   return values;
 };
 
