@@ -22,9 +22,9 @@ const CreateServerDialog = (props: DefaultDialogProps) => {
         <form onSubmit={formik.handleSubmit}>
           <TextField
             fullWidth
-            id="username"
-            name="username"
-            label="Username"
+            id="name"
+            name="name"
+            label="name"
             value={formik.values.name}
             onChange={formik.handleChange}
             error={formik.touched.name && Boolean(formik.errors.name)}
