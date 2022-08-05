@@ -4,10 +4,12 @@ import useFormikWithMaterialUI from 'hooks/useFormikWithMui';
 import authValues from 'formik/auth/auth';
 import { useEffect, useState } from 'react';
 import { useServerContext } from 'renderer/context/ServerContext';
+import { useNavigate } from 'react-router-dom';
 import { AuthTextField, AuthButton } from '../styles';
 
 // TODO - needs stlying
 const LoginForm = () => {
+  const navigate = useNavigate();
   const { changeServer } = useServerContext();
   const [isOpen, setIsOpen] = useState(false);
   const [responseMessage, setResponseMessage] = useState('');
@@ -19,14 +21,15 @@ const LoginForm = () => {
   useEffect(() => {
     if (mutation.isSuccess) {
       setIsOpen(true);
-      // TODO set last active server
+      changeServer(0);
       setResponseMessage('Successfully Logged in');
+      navigate('../server', { replace: true });
     }
     if (mutation.isError) {
       setIsOpen(true);
       setResponseMessage('User not found');
     }
-  }, [mutation.isSuccess, mutation.isError]);
+  }, [mutation.isSuccess, mutation.isError, changeServer, navigate]);
 
   const handleClose = (
     event: React.SyntheticEvent | Event,

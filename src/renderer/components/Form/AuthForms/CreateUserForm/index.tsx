@@ -2,12 +2,14 @@ import { useEffect, useState } from 'react';
 import createValues from 'formik/auth/create';
 import useCreateUserHook from 'api/user/create';
 import useFormikWithMaterialUI from 'hooks/useFormikWithMui';
-import { TextField, Button, Snackbar } from '@mui/material';
+import { Snackbar } from '@mui/material';
 import { useServerContext } from 'renderer/context/ServerContext';
+import { useNavigate } from 'react-router-dom';
 import { AuthTextField, AuthButton } from '../styles';
 
 // TODO style
 const CreateUserForm = () => {
+  const navigate = useNavigate();
   const { changeServer } = useServerContext();
   const [isOpen, setIsOpen] = useState(false);
   const [responseMessage, setResponseMessage] = useState('');
@@ -29,12 +31,13 @@ const CreateUserForm = () => {
       setIsOpen(true);
       changeServer(0);
       setResponseMessage('Successfully Logged in');
+      navigate('../server', { replace: true });
     }
     if (mutation.isError) {
       setIsOpen(true);
       setResponseMessage('Error creating user');
     }
-  }, [mutation.isSuccess, mutation.isError, changeServer]);
+  }, [mutation.isSuccess, mutation.isError, changeServer, navigate]);
 
   return (
     <>
