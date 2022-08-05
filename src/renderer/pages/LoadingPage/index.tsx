@@ -1,12 +1,12 @@
 import { Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuthContext } from 'renderer/context/AuthContext';
 
 const LoadingPage = () => {
   // TODO perform system checks - auth, user, internet, what servers the user has, messages of last selected server
-  const auth = localStorage.getItem('token');
-  const user = localStorage.getItem('user');
-  const [online, setOnline] = useState<boolean | null>(null);
+  const { isAuth } = useAuthContext();
+  const [online, setOnline] = useState<boolean>(false);
   const navigate = useNavigate();
 
   const navigateToAuth = () => {
@@ -18,22 +18,21 @@ const LoadingPage = () => {
   };
 
   useEffect(() => {
-    if (online === false || online === null) {
+    if (online === false) {
       const interval = setInterval(() => {
         setOnline(navigator.onLine);
       }, 3000);
       return () => clearInterval(interval);
     }
-    if (online && auth && user) {
+    if (online && isAuth()) {
       // TODO should navigate to the last known server
       navigateToServer();
     }
-    if (online && (auth == null || user == null)) {
+    if (online && !isAuth()) {
       navigateToAuth();
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [online, auth, user]);
+  }, [online, isAuth()]);
 
   return (
     <>
