@@ -14,7 +14,7 @@ const LoadingPage = () => {
   };
 
   const navigateToServer = () => {
-    navigate('../server', { replace: false });
+    navigate('../server', { replace: true });
   };
 
   useEffect(() => {
