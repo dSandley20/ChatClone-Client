@@ -1,3 +1,4 @@
+import IAuth from 'interfaces/user/IAuth';
 import IUser from 'interfaces/user/IUser';
 import { createContext, useContext, useState } from 'react';
 import { useLocalStorage } from 'react-use';
@@ -5,16 +6,14 @@ import { useLocalStorage } from 'react-use';
 export interface IAuthContext {
   token: null | string | undefined;
   user: null | IUser | undefined;
-  updateToken: (data: string | null) => void;
-  updateUser: (data: IUser | null) => void;
+  login: (data: IAuth) => void;
   logout: () => void;
 }
 
 const AuthContext = createContext<IAuthContext>({
   token: null,
   user: null,
-  updateToken(data) {},
-  updateUser(data) {},
+  login(data) {},
   logout() {},
 });
 
@@ -29,12 +28,9 @@ const AuthProvider = ({ children }: any) => {
     null
   );
 
-  const updateToken = (data: string | null) => {
-    setToken(data);
-  };
-
-  const updateUser = (data: IUser | null) => {
-    setUser(data);
+  const login = (data: IAuth) => {
+    setToken(data.token);
+    setUser(data.user);
   };
 
   const logout = () => {
@@ -47,8 +43,7 @@ const AuthProvider = ({ children }: any) => {
       value={{
         token,
         user,
-        updateToken,
-        updateUser,
+        login,
         logout,
       }}
     >
