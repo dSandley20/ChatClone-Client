@@ -8,6 +8,7 @@ export interface IAuthContext {
   user: null | IUser | undefined;
   login: (data: IAuth) => void;
   logout: () => void;
+  isAuth: () => boolean;
 }
 
 const AuthContext = createContext<IAuthContext>({
@@ -15,6 +16,9 @@ const AuthContext = createContext<IAuthContext>({
   user: null,
   login(data) {},
   logout() {},
+  isAuth() {
+    return false;
+  },
 });
 
 export default AuthContext;
@@ -38,6 +42,10 @@ const AuthProvider = ({ children }: any) => {
     removeUser();
   };
 
+  const isAuth = () => {
+    return token !== null && user !== null;
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -45,6 +53,7 @@ const AuthProvider = ({ children }: any) => {
         user,
         login,
         logout,
+        isAuth,
       }}
     >
       {children}
