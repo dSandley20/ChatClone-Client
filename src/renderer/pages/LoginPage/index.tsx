@@ -1,10 +1,12 @@
 import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { useState } from 'react';
-import CreateUserForm from 'renderer/components/Form/CreateUserForm';
-import LoginForm from 'renderer/components/Form/LoginForm';
+import CreateUserForm from 'renderer/components/Form/AuthForms/CreateUserForm';
+import LoginForm from 'renderer/components/Form/AuthForms/LoginForm';
+import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
+  const naviagate = useNavigate();
   const [loginMode, setLoginMode] = useState(true);
 
   const changeMode = () => {
@@ -16,13 +18,17 @@ const LoginPage = () => {
       {loginMode && (
         <Box>
           <LoginForm />
-          <Typography onClick={changeMode}>Create Account</Typography>
+          <Typography sx={{ textAlign: 'center' }} onClick={changeMode}>
+            Create Account
+          </Typography>
         </Box>
       )}
       {!loginMode && (
         <Box>
           <CreateUserForm />
-          <Typography onClick={changeMode}>Already have an account?</Typography>
+          <Typography sx={{ textAlign: 'center' }} onClick={changeMode}>
+            Already have an account?
+          </Typography>
         </Box>
       )}
     </>
