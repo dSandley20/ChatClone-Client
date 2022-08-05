@@ -8,7 +8,7 @@ const listServerRequest = async () => {
       return response.data;
     })
     .catch(() => {
-      throw new Error('No user found');
+      throw new Error('No servers found');
     });
 };
 
