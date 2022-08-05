@@ -1,5 +1,5 @@
-import LoginForm from 'renderer/components/Form/LoginForm';
-import CreateUserForm from 'renderer/components/Form/CreateUserForm';
+import LoginForm from 'renderer/components/Form/AuthForms/LoginForm';
+import CreateUserForm from 'renderer/components/Form/AuthForms/CreateUserForm';
 import icon from '../../../../assets/icon.svg';
 
 const TestPage = () => {
