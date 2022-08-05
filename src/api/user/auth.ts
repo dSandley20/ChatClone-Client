@@ -1,8 +1,8 @@
 import api from 'api/api';
 import ILoginCreateUser from 'interfaces/user/ILoginCreateUser';
 import { useMutation } from '@tanstack/react-query';
-import { useLocalStorage } from 'react-use';
 import IAuth from 'interfaces/user/IAuth';
+import { useAuthContext } from 'renderer/context/AuthContext';
 
 const authRequest = async (data: ILoginCreateUser): Promise<IAuth> => {
   return api
@@ -16,14 +16,10 @@ const authRequest = async (data: ILoginCreateUser): Promise<IAuth> => {
 };
 
 const useAuthHook = () => {
-  const [token, setToken, removeToken] = useLocalStorage('token', '');
-  const [user, setUser, removeUser] = useLocalStorage('user', {});
-
+  const { login } = useAuthContext();
   return useMutation(authRequest, {
     onSuccess: (response) => {
-      // TODO set jwt + user in electron store or local storage
-      setToken(response.token);
-      setUser(response.user);
+      login(response);
     },
   });
 };
