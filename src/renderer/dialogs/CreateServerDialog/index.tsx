@@ -5,7 +5,7 @@ import useFormikWithMaterialUI from 'hooks/useFormikWithMui';
 
 export interface DefaultDialogProps {
   open: boolean;
-  onClose: (value: string) => void;
+  onClose: () => void;
 }
 
 const CreateServerDialog = (props: DefaultDialogProps) => {
