@@ -9,6 +9,8 @@ export interface IAuthContext {
   login: (data: IAuth) => void;
   logout: () => void;
   isAuth: () => boolean;
+  isOnline: boolean;
+  updateIsOnline: (value: boolean) => void;
 }
 
 const AuthContext = createContext<IAuthContext>({
@@ -19,6 +21,8 @@ const AuthContext = createContext<IAuthContext>({
   isAuth() {
     return false;
   },
+  isOnline: false,
+  updateIsOnline(value) {},
 });
 
 export default AuthContext;
@@ -31,6 +35,7 @@ const AuthProvider = ({ children }: any) => {
     'user',
     null
   );
+  const [isOnline, setIsOnline] = useState(false);
 
   const login = (data: IAuth) => {
     setToken(data.token);
@@ -46,6 +51,10 @@ const AuthProvider = ({ children }: any) => {
     return token !== null && user !== null;
   };
 
+  const updateIsOnline = (value: boolean) => {
+    setIsOnline(value);
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -54,6 +63,8 @@ const AuthProvider = ({ children }: any) => {
         login,
         logout,
         isAuth,
+        isOnline,
+        updateIsOnline,
       }}
     >
       {children}
