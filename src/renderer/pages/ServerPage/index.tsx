@@ -8,11 +8,13 @@ const ServerPage = () => {
   const { data, isSuccess, isError } = useListServer();
   const { selectedServer, selectedServerId } = useServerContext();
 
+  console.log(data.data);
+
   return (
     <>
       <Grid container spacing={1}>
         <Grid item xs={3}>
-          <ServerMenu data={data} />
+          <ServerMenu data={data.data} />
         </Grid>
         {isSuccess && selectedServerId === 0 && (
           <Box> {/* TODO have message/server panel */}</Box>
