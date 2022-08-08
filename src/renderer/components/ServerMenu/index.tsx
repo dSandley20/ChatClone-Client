@@ -1,10 +1,10 @@
 /* eslint-disable no-underscore-dangle */
 import { Stack } from '@mui/material';
+import IServer from 'interfaces/server/IServer';
 import IServerButton from 'interfaces/server/IServerButton';
 import { useState } from 'react';
-import CreateServerDialog from 'renderer/dialogs/CreateServerDialog';
-import IServer from 'interfaces/server/IServer';
 import { useServerContext } from 'renderer/context/ServerContext';
+import ServerOptionsDialog from 'renderer/dialogs/ServerOptionsDialog';
 import ServerButton from '../ServerButton';
 
 export interface IServerMenu {
@@ -56,7 +56,7 @@ const ServerMenu = (props: IServerMenu) => {
           onClose={createServerProps.onClose}
         />
       </Stack>
-      <CreateServerDialog open={isOpen} onClose={createServerProps.onClose} />
+      <ServerOptionsDialog open={isOpen} onClose={createServerProps.onClose} />
     </>
   );
 };
