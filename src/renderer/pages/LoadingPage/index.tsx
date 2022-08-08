@@ -5,8 +5,7 @@ import { useAuthContext } from 'renderer/context/AuthContext';
 
 const LoadingPage = () => {
   // TODO perform system checks - auth, user, internet, what servers the user has, messages of last selected server
-  const { isAuth } = useAuthContext();
-  const [online, setOnline] = useState<boolean>(false);
+  const { isAuth, isOnline, updateIsOnline } = useAuthContext();
   const navigate = useNavigate();
 
   const navigateToAuth = () => {
@@ -18,21 +17,21 @@ const LoadingPage = () => {
   };
 
   useEffect(() => {
-    if (online === false) {
+    if (isOnline === false) {
       const interval = setInterval(() => {
-        setOnline(navigator.onLine);
+        updateIsOnline(navigator.onLine);
       }, 3000);
       return () => clearInterval(interval);
     }
-    if (online && isAuth()) {
+    if (isOnline && isAuth()) {
       // TODO should navigate to the last known server
       navigateToServer();
     }
-    if (online && !isAuth()) {
+    if (isOnline && !isAuth()) {
       navigateToAuth();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [online, isAuth()]);
+  }, [isOnline, isAuth, updateIsOnline]);
 
   return (
     <>
