@@ -2,8 +2,8 @@
 import { Stack } from '@mui/material';
 import IServer from 'interfaces/server/IServer';
 import IServerButton from 'interfaces/server/IServerButton';
-import { useState } from 'react';
 import { useServerContext } from 'renderer/context/ServerContext';
+import { useServerOptionsDialogContext } from 'renderer/context/ServerOptionDialogContext';
 import ServerOptionsDialog from 'renderer/dialogs/ServerOptionsDialog';
 import ServerButton from '../ServerButton';
 
@@ -13,18 +13,18 @@ export interface IServerMenu {
 
 const ServerMenu = (props: IServerMenu) => {
   const { changeServer } = useServerContext();
+  const { isOpen, updateIsOpen } = useServerOptionsDialogContext();
 
-  const [isOpen, setIsOpen] = useState(false);
   const { data } = props;
 
   const createServerProps: IServerButton = {
     serverName: 'create server',
     serverInitials: '+',
     onClick: () => {
-      setIsOpen(true);
+      updateIsOpen(true);
     },
     onClose: () => {
-      setIsOpen(false);
+      updateIsOpen(false);
     },
   };
 
