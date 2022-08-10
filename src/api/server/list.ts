@@ -1,5 +1,5 @@
-import api from 'api/api';
 import { useQuery } from '@tanstack/react-query';
+import api from 'api/api';
 
 const listServerRequest = async () => {
   return api
