@@ -13,11 +13,11 @@ const ServerPage = () => {
   const { data, isSuccess, isError } = useListServer();
   const { selectedServer, selectedServerId } = useServerContext();
   const { isCreate, isJoin } = useServerOptionsDialogContext();
-  const [serverlist, setServerList] = useState<IServer[]>([]);
+  const [servers, setServers] = useState<IServer[]>([]);
 
   useMemo(() => {
     if (data && data.data) {
-      setServerList(data.data);
+      setServers(data.data);
     }
   }, [data]);
 
@@ -27,7 +27,7 @@ const ServerPage = () => {
     <>
       <Grid container spacing={1}>
         <Grid item xs={3}>
-          <ServerMenu data={serverlist} />
+          <ServerMenu data={servers} />
         </Grid>
         {isSuccess && selectedServerId === 0 && (
           <Box> {/* TODO have message/server panel */}</Box>
