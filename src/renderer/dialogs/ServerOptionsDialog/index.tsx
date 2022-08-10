@@ -6,26 +6,19 @@ import {
   ListItem,
   ListItemButton,
 } from '@mui/material';
-import { useState } from 'react';
-import CreateServerDialog, { DefaultDialogProps } from '../CreateServerDialog';
-import JoinServerDialog from '../JoinServerDialog';
+import { useServerOptionsDialogContext } from 'renderer/context/ServerOptionDialogContext';
+import { DefaultDialogProps } from '../CreateServerDialog';
 
 const ServerOptionsDialog = (props: DefaultDialogProps) => {
   const { open, onClose } = props;
-  const [isCreate, setIsCreate] = useState(false);
-  const [isJoin, setIsJoin] = useState(false);
-
-  const onCloseDialogs = () => {
-    setIsCreate(false);
-    setIsJoin(false);
-  };
+  const { updateIsCreate, updateIsJoin } = useServerOptionsDialogContext();
 
   const openCreate = () => {
-    setIsCreate(true);
+    updateIsCreate(true);
   };
 
   const openJoin = () => {
-    setIsJoin(true);
+    updateIsJoin(true);
   };
 
   return (
@@ -41,8 +34,6 @@ const ServerOptionsDialog = (props: DefaultDialogProps) => {
           </ListItem>
         </List>
       </Dialog>
-      <CreateServerDialog open={isCreate} onClose={onCloseDialogs} />
-      <JoinServerDialog open={isJoin} onClose={onCloseDialogs} />
     </Box>
   );
 };

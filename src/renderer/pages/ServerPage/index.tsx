@@ -5,12 +5,14 @@ import { useMemo, useState } from 'react';
 import LoadingFailed from 'renderer/components/LoadingFailed';
 import ServerMenu from 'renderer/components/ServerMenu';
 import { useServerContext } from 'renderer/context/ServerContext';
+import { useServerOptionsDialogContext } from 'renderer/context/ServerOptionDialogContext';
 import CreateServerDialog from 'renderer/dialogs/CreateServerDialog';
 import JoinServerDialog from 'renderer/dialogs/JoinServerDialog';
 
 const ServerPage = () => {
   const { data, isSuccess, isError } = useListServer();
   const { selectedServer, selectedServerId } = useServerContext();
+  const { isCreate, isJoin } = useServerOptionsDialogContext();
   const [serverlist, setServerList] = useState<IServer[]>([]);
 
   useMemo(() => {
