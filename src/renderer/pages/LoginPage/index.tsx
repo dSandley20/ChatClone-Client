@@ -1,9 +1,10 @@
 import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import CreateUserForm from 'renderer/components/Form/AuthForms/CreateUserForm';
 import LoginForm from 'renderer/components/Form/AuthForms/LoginForm';
-import { useNavigate } from 'react-router-dom';
+import { AuthBox } from 'renderer/components/Form/AuthForms/styles';
 
 const LoginPage = () => {
   const naviagate = useNavigate();
@@ -14,14 +15,14 @@ const LoginPage = () => {
   };
 
   return (
-    <>
+    <Box sx={{ width: '300px' }}>
       {loginMode && (
-        <Box>
+        <AuthBox>
           <LoginForm />
           <Typography sx={{ textAlign: 'center' }} onClick={changeMode}>
             Create Account
           </Typography>
-        </Box>
+        </AuthBox>
       )}
       {!loginMode && (
         <Box>
@@ -31,7 +32,7 @@ const LoginPage = () => {
           </Typography>
         </Box>
       )}
-    </>
+    </Box>
   );
 };
 

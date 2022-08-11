@@ -1,11 +1,11 @@
-import { Button, TextField, Snackbar } from '@mui/material';
+import { Box, Snackbar } from '@mui/material';
 import useAuthHook from 'api/user/auth';
-import useFormikWithMaterialUI from 'hooks/useFormikWithMui';
 import authValues from 'formik/auth/auth';
+import useFormikWithMaterialUI from 'hooks/useFormikWithMui';
 import { useEffect, useState } from 'react';
-import { useServerContext } from 'renderer/context/ServerContext';
 import { useNavigate } from 'react-router-dom';
-import { AuthTextField, AuthButton } from '../styles';
+import { useServerContext } from 'renderer/context/ServerContext';
+import { AuthButton, AuthTextField } from '../styles';
 
 // TODO - needs stlying
 const LoginForm = () => {
@@ -41,9 +41,13 @@ const LoginForm = () => {
 
   return (
     <>
-      <div>
+      <Box>
         <form
-          style={{ display: 'inline-grid', justifyItems: 'center' }}
+          style={{
+            display: 'inline-grid',
+            justifyItems: 'center',
+            width: '100%',
+          }}
           onSubmit={formik.handleSubmit}
         >
           <AuthTextField
@@ -80,7 +84,7 @@ const LoginForm = () => {
           onClose={handleClose}
           message={responseMessage}
         />
-      </div>
+      </Box>
     </>
   );
 };

@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
-import createValues from 'formik/auth/create';
-import useCreateUserHook from 'api/user/create';
-import useFormikWithMaterialUI from 'hooks/useFormikWithMui';
 import { Snackbar } from '@mui/material';
-import { useServerContext } from 'renderer/context/ServerContext';
+import useCreateUserHook from 'api/user/create';
+import createValues from 'formik/auth/create';
+import useFormikWithMaterialUI from 'hooks/useFormikWithMui';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AuthTextField, AuthButton } from '../styles';
+import { useServerContext } from 'renderer/context/ServerContext';
+import { AuthButton, AuthTextField } from '../styles';
 
 // TODO style
 const CreateUserForm = () => {
@@ -43,7 +43,11 @@ const CreateUserForm = () => {
     <>
       <div>
         <form
-          style={{ display: 'inline-grid', justifyItems: 'center' }}
+          style={{
+            display: 'inline-grid',
+            justifyItems: 'center',
+            width: '100%',
+          }}
           onSubmit={formik.handleSubmit}
         >
           <AuthTextField
